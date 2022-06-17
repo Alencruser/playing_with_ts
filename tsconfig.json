@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "esModuleInterop": true,
+        "target": "es6",
+        "noImplicitAny": true,
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "outDir": "dist",
+        "baseUrl": "./",
+        "paths": {
+            "@controllers/*": ["controllers/*"],
+            "@services/*": ["services/*"],
+            "@models/*": ["models/*"],
+            "*": [
+                "node_modules/*"
+            ]
+        }
+    },
+    "include": [
+        "controllers/**/*",
+        "services/**/*",
+        "models/**/*",
+        "server.ts"
+    ]
+}
