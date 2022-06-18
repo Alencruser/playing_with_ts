@@ -20,14 +20,39 @@ router.use(function timeLog(req, res, next) {
     console.log('Time: ', Date.now());
     next();
 });
-router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let voitures = yield (0, voitures_1.getVoitures)();
-    voitures = voitures.map((voiture) => {
-        voiture.age = voiture.age + ' ans';
-        voiture.neuve = 'oui';
-        return voiture;
+// router.get('/', async (req: any, res: any) => {
+//     let voitures: Voiture[] = await getVoitures();
+//     voitures = voitures.map((voiture: Voiture) => {
+//         let newVoiture: any = {};
+//         newVoiture.age = voiture.age + ' ans';
+//         newVoiture.neuve = 'oui';
+//         newVoiture = {...voiture, ...newVoiture}
+//         return newVoiture;
+//     })
+//     console.log('voitures modifiées', voitures);
+//     res.render('voitures', { voitures });
+// });
+router.get('/', (req, res) => {
+    (0, voitures_1.getVoitures)().then((voitures) => {
+        voitures = voitures.map((voiture) => {
+            let newVoiture = {};
+            newVoiture.age = voiture.age + ' ans';
+            newVoiture.neuve = 'oui';
+            newVoiture = Object.assign(Object.assign({}, voiture), newVoiture);
+            return newVoiture;
+        });
+        console.log('voitures modifiées', voitures);
+        res.render('voitures', {
+            voitures
+        });
     });
-    res.render('voitures', { voitures });
+});
+router.get('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = Number(req.params.id);
+    const voiture = yield (0, voitures_1.getVoitureById)(id);
+    res.render('voitures', {
+        voitures: voiture
+    });
 }));
 exports.default = router;
 //# sourceMappingURL=voitures.js.map
